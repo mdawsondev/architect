@@ -1,0 +1,1 @@
+Contributions are currently open source; this project is in development and will establish more information as the project reaches initial release.
