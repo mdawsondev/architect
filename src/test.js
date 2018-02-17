@@ -22,6 +22,7 @@ let settings = {
   title: "new-project",
   about: "About my project...",
   license: "MIT",
+  loc: __dirname,
   git: 1,
   hub: 0,
   commit: 0,
@@ -33,6 +34,7 @@ const questions = [
   [`question project title (${settings.title}): `, "title"],
   [`question about (${settings.about}): `, "about"],
   [`question license (${settings.license}): `, "license"],
+  [`question location (${settings.loc}): `, "loc"],
   [`question git init (y/n): `, "git"],
   [`question init commit (y/n): `, "commit"],
   [`question hub init (y/n): `, "hub"],
@@ -54,13 +56,15 @@ function askQs(qNum = 0) {
 
 };
 
+
 function nextQ(qNum) {
   qNum !== questions.length - 1 ? askQs(qNum + 1) : (rl.close(), output());
 }
 
 function output() {
-  let path = `./${settings.title}`,
+  let path = `${settings.loc}/${settings.title}`,
     cdPath = `cd ${path}`;
+  console.log("HEY AT " + path);
   if (!fs.existsSync(path)) fs.mkdirSync(path);
 
   fs.appendFile(`${path}/LICENSE`, `${licns[settings.license].replace("USERNAME", settings.owner)}`, (err) => {
