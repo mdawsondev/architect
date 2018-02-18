@@ -1,18 +1,22 @@
 {
   "name": "architect",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Environment starter packs.",
-  "main": "index.js",
+  "main": "app.js",
   "repository": "C:\\Users\\Matt\\Google Drive\\architect",
   "author": "Matt Dawson <mdawsondev@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "node ./src/test.js"
+    "test": "node ./src/app.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-env": "^2.4.1",
-    "webpack": "^3.10.0"
+    "babel-loader": "^7.1.2",
+    "webpack": "^3.11.0"
+  },
+  "dependencies": {
+    "command-exists": "^1.2.2"
   }
 }
