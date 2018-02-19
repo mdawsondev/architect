@@ -21,6 +21,7 @@ This project is in development, and will eventually be moved to npm.
 ### History
 * *v1.0.0* - Minimal but functional release to be built around.
 * *v1.1.0* - Rewrote entire code to modularize application and added a git/hub validation.
+* *v1.1.1* - Swap arrows for function declarations.
 
 ### To-Do
 * Send minified app to npm for global use.

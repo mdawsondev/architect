@@ -14,11 +14,11 @@ let hasHub = cmdExists('git') ? 1 : 0,
     hasGit = cmdExists('hub') ? 1 : 0,
     settings = {};
 
-init = () => {
+(function init() { // Initialize code; no reason to bother with init();.
   askQuestions(questions);
-};
+}());
 
-askQuestions = q => {
+function askQuestions(q) {
     const req = q[0][0],
           reqType = q[0][1];
     rl.question(req, (ans) => {
@@ -26,9 +26,9 @@ askQuestions = q => {
       questions.shift();
       questions.length > 0 ? askQuestions(questions) : (rl.close(), processAnswers());
     });
-};
+}
 
-processAnswers = () => {
+function processAnswers() {
   let licenseList = ["MIT", "none"];
   for (let e in settings) {
     switch (e) {
@@ -47,9 +47,9 @@ processAnswers = () => {
     }
   }
   output();
-};
+}
 
-output = () => {
+function output() {
   let route = `${settings.location}/${settings.titlePath}`;
   console.log("");
 
@@ -67,11 +67,11 @@ output = () => {
   console.log("-> Created README.md!")
 
   checkGit(route);
-};
+}
 
 // All instances of r are "route" funneled through checkGit(route)!
 
-checkGit = (r) => {
+function checkGit(r) {
   if (hasGit && settings.git) {
     cmd(`git init ${r}`, () => {
       console.log("-> Initialized git!");
@@ -82,7 +82,7 @@ checkGit = (r) => {
   }
 }
 
-checkCommit = (r) => {
+function checkCommit(r) {
   if (settings.git && settings.commit) {
     cmd(`cd ${r} && git add -A && git commit -m "Initial commit"`, () => {
       console.log("-> First commit created!");
@@ -93,7 +93,7 @@ checkCommit = (r) => {
   }
 }
 
-checkHub = (r) => {
+function checkHub(r) {
   if (hasHub && settings.hub) {
     cmd(`cd ${r} && hub create ${settings.titlePath}`, () => {
       console.log(`-> Created repo "${settings.titlePath}" on GitHub!`);
@@ -104,22 +104,20 @@ checkHub = (r) => {
   };
 };
 
-checkPush = (r) => {
+function checkPush(r) {
     if (settings.push) cmd(`cd ${r} && git push origin master`, () => {    
       console.log("-> Pushed initial commit to GitHub!");
       exitMessage();
     });
 };
 
-hasInternet = (r) => {
+function hasInternet(r) {
   console.log("-- Checking internet connection.");
   dns.resolve('www.google.com', err => {
     err ? console.log("-X ERROR: NO CONNECTION ESTABLISHED.") : (console.log("-> Connection found!"), checkHub(r));
   });
 }
 
-exitMessage = () => {
+function exitMessage() {
   console.log(`\nProject ${settings.title} has completed setup, now exiting script.\n`);
 }
-
-init();
