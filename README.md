@@ -19,6 +19,12 @@ This project is in development, and will eventually be moved to npm. If you'd li
 * hub init: Create a new repo on GitHub (requires [hub](https://github.com/github/hub)).
 * init push: Push initial files to your new GitHub repo.
 
+### Structure
+
+* ./src/ - Uncompiled, untranspiled, raw code.
+* ./dist/ - Processed code that has not been "built" into the final product.
+* ./build/ - The final product; can be used without any other resources.
+
 ### History
 
 * *v1.0.0* - Minimal but functional release to be built around.
@@ -26,6 +32,7 @@ This project is in development, and will eventually be moved to npm. If you'd li
 * *v1.1.1* - Swap arrows for function declarations.
 * *v1.1.2* - Added detailed execution plan for preferred web development setup (See: src/README.md).
 * *v1.1.2a* - Dropped Mocha for Jest testing, added nodemon server support for easier checks.
+* *v1.1.2b* - Convert `.ts` to TSLint-approved and compile new output.
 
 ### To-Do
 

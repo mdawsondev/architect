@@ -23,7 +23,7 @@ This guide documents *my* preferred standard web development environment. `git` 
 2. `npm install --save-dev yarn`
 3. `yarn init -y`
 4. `yarn add --dev jest typescript webpack tslint nodemon`
-5. `yarn add --dev chokidar chokidar-cli cross-env npm-run-all`
+5. `yarn add --dev chokidar chokidar-cli cross-env npm-run-all ts-loader`
 6. `yarn tsc --init`
 7. `yarn tslint --init`
 8. `mkdir app tools app/components app/tests build dist`

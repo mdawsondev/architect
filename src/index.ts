@@ -1,4 +1,4 @@
-// This is obviously not prepared yet, will work on conversion from JS to TS for next update!
+'use strict';
 
 const cmdExists = require('command-exists').sync,
       defaults = require('./resources/defaults'),
@@ -14,16 +14,16 @@ const cmdExists = require('command-exists').sync,
 
 let hasHub = cmdExists('git') ? 1 : 0,
     hasGit = cmdExists('hub') ? 1 : 0,
-    settings = {};
+    settings: any = {};
 
 (function init() { // Initialize code; no reason to bother with init();.
   askQuestions(questions);
 }());
 
-function askQuestions(q) {
+function askQuestions(q: any) {
     const req = q[0][0],
           reqType = q[0][1];
-    rl.question(req, (ans) => {
+    rl.question(req, (ans: any) => {
       settings[reqType] = ans ? ans : defaults[reqType];
       questions.shift();
       questions.length > 0 ? askQuestions(questions) : (rl.close(), processAnswers());
@@ -60,12 +60,12 @@ function output() {
 
   fs.appendFile(`${route}/LICENSE`, // Create LICENSE.
     `${licenses[settings.license].replace("USERNAME", settings.owner)}`,
-    err => { if (err) throw err });
+    (err: any) => { if (err) throw err });
   console.log("-> Created LICENSE!")
 
   fs.appendFile(`${route}/README.md`, // Create README.md.
     `# ${settings.title}\n\n${settings.about}`,
-    err => { if (err) throw err });
+    (err: any) => { if (err) throw err });
   console.log("-> Created README.md!")
 
   checkGit(route);
@@ -73,7 +73,7 @@ function output() {
 
 // All instances of r are "route" funneled through checkGit(route)!
 
-function checkGit(r) {
+function checkGit(r: any) {
   if (hasGit && settings.git) {
     cmd(`git init ${r}`, () => {
       console.log("-> Initialized git!");
@@ -84,7 +84,7 @@ function checkGit(r) {
   }
 }
 
-function checkCommit(r) {
+function checkCommit(r: any) {
   if (settings.git && settings.commit) {
     cmd(`cd ${r} && git add -A && git commit -m "Initial commit"`, () => {
       console.log("-> First commit created!");
@@ -95,7 +95,7 @@ function checkCommit(r) {
   }
 }
 
-function checkHub(r) {
+function checkHub(r: any) {
   if (hasHub && settings.hub) {
     cmd(`cd ${r} && hub create ${settings.titlePath}`, () => {
       console.log(`-> Created repo "${settings.titlePath}" on GitHub!`);
@@ -106,16 +106,16 @@ function checkHub(r) {
   };
 };
 
-function checkPush(r) {
+function checkPush(r: any) {
     if (settings.push) cmd(`cd ${r} && git push origin master`, () => {    
       console.log("-> Pushed initial commit to GitHub!");
       exitMessage();
     });
 };
 
-function hasInternet(r) {
+function hasInternet(r: any) {
   console.log("-- Checking internet connection.");
-  dns.resolve('www.google.com', err => {
+  dns.resolve('www.google.com', (err: any) => {
     err ? console.log("-X ERROR: NO CONNECTION ESTABLISHED.") : (console.log("-> Connection found!"), checkHub(r));
   });
 }

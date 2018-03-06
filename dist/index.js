@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var cmdExists = require('command-exists').sync, defaults = require('./resources/defaults'), questions = require('./resources/questions'), licenses = require('./resources/licenses'), fs = require('fs'), // File System
 rl = require('readline').createInterface({
     input: process.stdin,
@@ -108,3 +108,4 @@ function hasInternet(r) {
 function exitMessage() {
     console.log("\nProject " + settings.title + " has completed setup, now exiting script.\n");
 }
+//# sourceMappingURL=index.js.map
