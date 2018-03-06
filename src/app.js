@@ -121,3 +121,7 @@ function hasInternet(r) {
 function exitMessage() {
   console.log(`\nProject ${settings.title} has completed setup, now exiting script.\n`);
 }
+
+module.exports = {
+  askQuestions: askQuestions()
+};
