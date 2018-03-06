@@ -25,6 +25,7 @@ This project is in development, and will eventually be moved to npm. If you'd li
 * *v1.1.0* - Rewrote entire code to modularize application and added a git/hub validation.
 * *v1.1.1* - Swap arrows for function declarations.
 * *v1.1.2* - Added detailed execution plan for preferred web development setup (See: src/README.md).
+* *v1.1.2a* - Dropped Mocha for Jest testing, added nodemon server support for easier checks.
 
 ### To-Do
 
