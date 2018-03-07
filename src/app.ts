@@ -1,9 +1,11 @@
 'use strict';
 
+import test from './modules/ask-questions/askQuestions.module';
+
 const cmdExists = require('command-exists').sync,
-      defaults = require('./resources/defaults'),
-      questions = require('./resources/questions'),
-      licenses = require('./resources/licenses'),
+      defaults = require('./assets/defaults'),
+      questions = require('./assets/questions'),
+      licenses = require('./assets/licenses'),
       fs = require('fs'), // File System
       rl = require('readline').createInterface({ // Read Line
         input: process.stdin,
@@ -17,7 +19,8 @@ let hasHub = cmdExists('git') ? 1 : 0,
     settings: any = {};
 
 (function init() { // Initialize code; no reason to bother with init();.
-  askQuestions(questions);
+  // askQuestions(questions);
+  test(42);
 }());
 
 function askQuestions(q: any) {

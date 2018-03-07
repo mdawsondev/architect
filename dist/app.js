@@ -1,4 +1,9 @@
 'use strict';
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+var askQuestions_module_1 = __importDefault(require("./modules/ask-questions/askQuestions.module"));
 var cmdExists = require('command-exists').sync, defaults = require('./resources/defaults'), questions = require('./resources/questions'), licenses = require('./resources/licenses'), fs = require('fs'), // File System
 rl = require('readline').createInterface({
     input: process.stdin,
@@ -7,7 +12,8 @@ rl = require('readline').createInterface({
 dns = require('dns'); // DNS Connection
 var hasHub = cmdExists('git') ? 1 : 0, hasGit = cmdExists('hub') ? 1 : 0, settings = {};
 (function init() {
-    askQuestions(questions);
+    // askQuestions(questions);
+    askQuestions_module_1.default(42);
 }());
 function askQuestions(q) {
     var req = q[0][0], reqType = q[0][1];
@@ -108,4 +114,4 @@ function hasInternet(r) {
 function exitMessage() {
     console.log("\nProject " + settings.title + " has completed setup, now exiting script.\n");
 }
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=app.js.map
