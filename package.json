@@ -11,7 +11,7 @@
     "clean": "yarn npm-run-all clean:dist clean:build",
     "clean:dist": "yarn rimraf ./dist",
     "clean:build": "yarn rimraf ./build",
-    "copy:assets": "yarn cpx \"./src/resources/**\" \"./dist/resources\" --clean",
+    "copy:assets": "yarn cpx \"./src/assets/*\" \"./dist/assets\" --clean",
     "server": "yarn nodemon",
     "start": "node ./dist/app.js",
     "test": "yarn jest",

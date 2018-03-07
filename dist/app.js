@@ -4,26 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 var askQuestions_module_1 = __importDefault(require("./modules/ask-questions/askQuestions.module"));
-var cmdExists = require('command-exists').sync, defaults = require('./resources/defaults'), questions = require('./resources/questions'), licenses = require('./resources/licenses'), fs = require('fs'), // File System
-rl = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-}), cmd = require('child_process').exec, // Command Line
+var cmdExists = require('command-exists').sync, licenses = require('./assets/licenses'), fs = require('fs'), // File System
+cmd = require('child_process').exec, // Command Line
 dns = require('dns'); // DNS Connection
 var hasHub = cmdExists('git') ? 1 : 0, hasGit = cmdExists('hub') ? 1 : 0, settings = {};
 (function init() {
-    // askQuestions(questions);
-    askQuestions_module_1.default(42);
+    askQuestions_module_1.default(settings, processAnswers);
 }());
-function askQuestions(q) {
-    var req = q[0][0], reqType = q[0][1];
-    rl.question(req, function (ans) {
-        settings[reqType] = ans ? ans : defaults[reqType];
-        questions.shift();
-        questions.length > 0 ? askQuestions(questions) : (rl.close(), processAnswers());
-    });
-}
-function processAnswers() {
+// Ask Questions is now a module.
+function processAnswers(settings) {
     var licenseList = ["MIT", "none"];
     for (var e in settings) {
         switch (e) {

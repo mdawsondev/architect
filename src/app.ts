@@ -1,39 +1,24 @@
 'use strict';
 
-import test from './modules/ask-questions/askQuestions.module';
+import askQuestions from './modules/ask-questions/askQuestions.module';
 
 const cmdExists = require('command-exists').sync,
-      defaults = require('./assets/defaults'),
-      questions = require('./assets/questions'),
-      licenses = require('./assets/licenses'),
-      fs = require('fs'), // File System
-      rl = require('readline').createInterface({ // Read Line
-        input: process.stdin,
-        output: process.stdout
-      }),
-      cmd = require('child_process').exec, // Command Line
-      dns = require('dns'); // DNS Connection
+  licenses = require('./assets/licenses'),
+  fs = require('fs'), // File System
+  cmd = require('child_process').exec, // Command Line
+  dns = require('dns'); // DNS Connection
 
 let hasHub = cmdExists('git') ? 1 : 0,
-    hasGit = cmdExists('hub') ? 1 : 0,
-    settings: any = {};
+  hasGit = cmdExists('hub') ? 1 : 0,
+  settings: any = {};
 
 (function init() { // Initialize code; no reason to bother with init();.
-  // askQuestions(questions);
-  test(42);
+  askQuestions(settings, processAnswers);
 }());
 
-function askQuestions(q: any) {
-    const req = q[0][0],
-          reqType = q[0][1];
-    rl.question(req, (ans: any) => {
-      settings[reqType] = ans ? ans : defaults[reqType];
-      questions.shift();
-      questions.length > 0 ? askQuestions(questions) : (rl.close(), processAnswers());
-    });
-}
+// Ask Questions is now a module.
 
-function processAnswers() {
+function processAnswers(settings: any) {
   let licenseList = ["MIT", "none"];
   for (let e in settings) {
     switch (e) {
@@ -80,10 +65,10 @@ function checkGit(r: any) {
   if (hasGit && settings.git) {
     cmd(`git init ${r}`, () => {
       console.log("-> Initialized git!");
-      checkCommit(r);      
+      checkCommit(r);
     });
   } else {
-    checkCommit(r);    
+    checkCommit(r);
   }
 }
 
@@ -110,10 +95,10 @@ function checkHub(r: any) {
 };
 
 function checkPush(r: any) {
-    if (settings.push) cmd(`cd ${r} && git push origin master`, () => {    
-      console.log("-> Pushed initial commit to GitHub!");
-      exitMessage();
-    });
+  if (settings.push) cmd(`cd ${r} && git push origin master`, () => {
+    console.log("-> Pushed initial commit to GitHub!");
+    exitMessage();
+  });
 };
 
 function hasInternet(r: any) {
