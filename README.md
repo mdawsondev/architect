@@ -33,6 +33,7 @@ This project is in development, and will eventually be moved to npm. If you'd li
 * *v1.1.2* - Added detailed execution plan for preferred web development setup (See: src/README.md).
 * *v1.1.2a* - Dropped Mocha for Jest testing, added nodemon server support for easier checks.
 * *v1.1.2b* - Convert `.ts` to TSLint-approved and compile new output.
+* *v1.2.0* - Modularize application for plug/play implementation.
 
 ### To-Do
 

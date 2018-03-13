@@ -1,6 +1,6 @@
 {
   "name": "architect",
-  "version": "1.1.2b",
+  "version": "1.2.0",
   "description": "Environment starter packs.",
   "main": "./build/app.min.js",
   "repository": "https://github.com/mdawsondev/architect",
