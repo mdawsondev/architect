@@ -1,48 +1,32 @@
 'use strict';
 
-import askQuestions from './modules/ask-questions/askQuestions.module';
+import askQuestions   from './modules/ask-questions/askQuestions.module';
+import processAnswers from './modules/process-answers/processAnswers.module';
 
 const cmdExists = require('command-exists').sync,
-  licenses = require('./assets/licenses'),
-  fs = require('fs'), // File System
-  cmd = require('child_process').exec, // Command Line
-  dns = require('dns'); // DNS Connection
+      licenses  = require('./assets/licenses'),
+      fs        = require('fs'), // File System
+      cmd       = require('child_process').exec, // Command Line
+      dns       = require('dns'); // DNS Connection
 
-let hasHub = cmdExists('git') ? 1 : 0,
-  hasGit = cmdExists('hub') ? 1 : 0,
-  settings: any = {};
+let hasHub:   boolean  = cmdExists('git') ? true : false,
+    hasGit:   boolean  = cmdExists('hub') ? true : false,
+    route:    string   = '',
+    settings: any      = {};
 
-(function init() { // Initialize code; no reason to bother with init();.
-  askQuestions(settings, processAnswers);
-}());
+askQuestions(settings, proceed);
 
-// Ask Questions is now a module.
-
-function processAnswers(settings: any) {
-  let licenseList = ["MIT", "none"];
-  for (let e in settings) {
-    switch (e) {
-      case 'license':
-        if (licenseList.indexOf(settings.license) === -1) settings.license = "MIT";
-        break;
-      case 'title':
-        settings.titlePath = settings[e].toLowerCase().replace(/ /g, '-').trim();
-        break;
-      case 'git':
-      case 'commit':
-      case 'hub':
-      case 'push':
-        settings[e] === 'y' ? settings[e] = 1 : settings[e] = 0;
-        break;
-    }
-  }
-  output();
+function proceed() { // Since aQ pauses for input we need this callback.
+  settings = processAnswers(settings);
+  
+  route = `${settings.location}/${settings.titlePath}`;
+  
+  output(route);
+  checkGit(route);
 }
 
-function output() {
-  let route = `${settings.location}/${settings.titlePath}`;
-  console.log("");
-
+function output(route: string) {
+  
   !fs.existsSync(route) && fs.mkdirSync(route); // Create folder.
   console.log("-> Built folder!")
 
@@ -55,8 +39,6 @@ function output() {
     `# ${settings.title}\n\n${settings.about}`,
     (err: any) => { if (err) throw err });
   console.log("-> Created README.md!")
-
-  checkGit(route);
 }
 
 // All instances of r are "route" funneled through checkGit(route)!

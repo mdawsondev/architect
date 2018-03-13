@@ -9,17 +9,16 @@
 That's it! The next module (the callback)
 will prossess the data. */
 
-export default askQuestions;
-
 const defaults = require('../../assets/defaults'),
       allQs    = require('../../assets/questions'),
-      rl       = require('readline').createInterface({ input:  process.stdin,
-                                                       output: process.stdout });
+      readline = require('readline'),
+      rl       = readline.createInterface({ input:  process.stdin,
+                                            output: process.stdout });
 
 let nextModule: Function,  // Stored to avoid passing as param.
     remainQs: any = allQs; // Stored to avoid destroying const data.
 
-function askQuestions(data: any, cb: Function) {
+export default function askQuestions(data: any, cb: Function) {
   nextModule = cb;
   askRemainingQuestions(remainQs, data);
 }

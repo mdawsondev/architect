@@ -4,33 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 var askQuestions_module_1 = __importDefault(require("./modules/ask-questions/askQuestions.module"));
+var processAnswers_module_1 = __importDefault(require("./modules/process-answers/processAnswers.module"));
 var cmdExists = require('command-exists').sync, licenses = require('./assets/licenses'), fs = require('fs'), // File System
 cmd = require('child_process').exec, // Command Line
 dns = require('dns'); // DNS Connection
-var hasHub = cmdExists('git') ? 1 : 0, hasGit = cmdExists('hub') ? 1 : 0, settings = {};
+var hasHub = cmdExists('git') ? true : false, hasGit = cmdExists('hub') ? true : false, settings = {};
 (function init() {
-    askQuestions_module_1.default(settings, processAnswers);
+    askQuestions_module_1.default(settings, proceed);
 }());
 // Ask Questions is now a module.
-function processAnswers(settings) {
-    var licenseList = ["MIT", "none"];
-    for (var e in settings) {
-        switch (e) {
-            case 'license':
-                if (licenseList.indexOf(settings.license) === -1)
-                    settings.license = "MIT";
-                break;
-            case 'title':
-                settings.titlePath = settings[e].toLowerCase().replace(/ /g, '-').trim();
-                break;
-            case 'git':
-            case 'commit':
-            case 'hub':
-            case 'push':
-                settings[e] === 'y' ? settings[e] = 1 : settings[e] = 0;
-                break;
-        }
-    }
+// Process Answers is now a module.
+function proceed() {
+    settings = processAnswers_module_1.default(settings);
     output();
 }
 function output() {

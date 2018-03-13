@@ -10,8 +10,7 @@
 That's it! The next module (the callback)
 will prossess the data. */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = askQuestions;
-var defaults = require('../../assets/defaults'), allQs = require('../../assets/questions'), rl = require('readline').createInterface({ input: process.stdin,
+var defaults = require('../../assets/defaults'), allQs = require('../../assets/questions'), readline = require('readline'), rl = readline.createInterface({ input: process.stdin,
     output: process.stdout });
 var nextModule, // Stored to avoid passing as param.
 remainQs = allQs; // Stored to avoid destroying const data.
@@ -19,6 +18,7 @@ function askQuestions(data, cb) {
     nextModule = cb;
     askRemainingQuestions(remainQs, data);
 }
+exports.default = askQuestions;
 function askRemainingQuestions(singleQ, data) {
     var request = singleQ[0][0], requestType = singleQ[0][1];
     rl.question(request, function (answer) {

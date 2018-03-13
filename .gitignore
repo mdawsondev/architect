@@ -12,6 +12,8 @@
 node_modules/
 .tmp/
 
+foo*
+!foo*/
 # OS or Editor folders
 .DS_Store
 Thumbs.db
