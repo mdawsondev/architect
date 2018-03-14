@@ -4,8 +4,8 @@ import askQuestions   from './modules/ask-questions/askQuestions.module';
 import processAnswers from './modules/process-answers/processAnswers.module';
 import output         from './modules/output/output.module';
 
-let route:    string   = '',
-    settings: any      = {};
+let route: string = '',
+    settings: any = {};
 
 askQuestions(settings, proceed); // CB due to process time.
 

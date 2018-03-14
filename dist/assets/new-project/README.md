@@ -1,3 +1,0 @@
-# New Project
-
-About my project...
